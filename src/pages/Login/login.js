@@ -34,6 +34,8 @@ const From = styled.form`
 	}
 
 	button {
+		color: #ffffff;
+		font-size: 21px;
 		background: #52b6ff;
 	}
 `;
