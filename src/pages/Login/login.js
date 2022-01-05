@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Loader from "react-loader-spinner";
 
 import logo from "../../components/logoTrackIt.png";
 
@@ -16,6 +17,8 @@ export default function TelaLogin() {
 				<Cadastrar>Não tem uma conta? Cadastre-se!</Cadastrar>
 			</Link>
 		</>
+
+		//<Loader type="ThreeDots" color="#00BFFF" height={80} width={80} />
 	);
 }
 

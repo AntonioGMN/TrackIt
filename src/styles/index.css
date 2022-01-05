@@ -20,3 +20,8 @@ body {
 a {
 	text-decoration: none;
 }
+
+input:disabled,
+button:disabled {
+	background: #f2f2f2;
+}
