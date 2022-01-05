@@ -1,17 +1,61 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 import logo from "../../components/logoTrackIt.png";
 
 export default function TelaCadastro() {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [name, setName] = useState("");
+	const [image, setImage] = useState("");
+
+	const navigate = useNavigate();
+
+	function cadastrar(e) {
+		e.preventDefault();
+
+		const promessa = axios.post(
+			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+			{ email: email, name: name, image: image, password: password }
+		);
+
+		promessa.then((resposta) => {
+			navigate("/");
+			console.log(resposta);
+		});
+		promessa.catch((erro) => alert("Erro no Cadastro. Tente Novamente"));
+	}
+
 	return (
 		<>
 			<img src={logo} />
-			<From>
-				<input type="email" placeholder="email" />
-				<input type="password" placeholder="senha" />
-				<input type="text" placeholder="nome" />
-				<input type="url" placeholder="image" />
+			<From onSubmit={cadastrar}>
+				<input
+					type="email"
+					value={email}
+					placeholder="email"
+					onChange={(e) => setEmail(e.target.value)}
+				/>
+				<input
+					type="password"
+					placeholder="senha"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+				/>
+				<input
+					type="text"
+					placeholder="nome"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<input
+					type="url"
+					placeholder="image"
+					value={image}
+					onChange={(e) => setImage(e.target.value)}
+				/>
 				<button type="submit">Cadastrar</button>
 			</From>
 			<Link to="/">
