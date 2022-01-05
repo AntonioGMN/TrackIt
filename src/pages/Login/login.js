@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import logo from "../components/logoTrackIt.png";
+import logo from "../../components/logoTrackIt.png";
 
 export default function TelaLogin() {
 	return (
@@ -11,7 +12,9 @@ export default function TelaLogin() {
 				<input type="password" placeholder="senha" />
 				<button type="submit">Entrar</button>
 			</From>
-			<p>Não tem uma conta? Cadastre-se!</p>
+			<Link to="/cadastro">
+				<Cadastrar>Não tem uma conta? Cadastre-se!</Cadastrar>
+			</Link>
 		</>
 	);
 }
@@ -33,4 +36,10 @@ const From = styled.form`
 	button {
 		background: #52b6ff;
 	}
+`;
+
+const Cadastrar = styled.p`
+	font-size: 14px;
+	color: #52b6ff;
+	text-decoration: underline;
 `;
