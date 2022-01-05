@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import logo from "../../components/logoTrackIt.png";
+import { From, Cadastrar, logoCompleto } from "../../components/styles";
 
 export default function TelaCadastro() {
 	const [email, setEmail] = useState("");
@@ -36,7 +35,7 @@ export default function TelaCadastro() {
 
 	return (
 		<>
-			<img src={logo} />
+			<img src={logoCompleto} alt="img logo" />
 			<From onSubmit={cadastrar}>
 				<input
 					type="email"
@@ -80,34 +79,3 @@ export default function TelaCadastro() {
 		</>
 	);
 }
-
-const From = styled.form`
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	margin: 32px 0 25px 0;
-
-	input,
-	button {
-		width: 303px;
-		height: 45px;
-		border: 1px solid #d4d4d4;
-		border-radius: 5px;
-	}
-
-	button {
-		color: #ffffff;
-		font-size: 21px;
-		background: #52b6ff;
-	}
-
-	Loader {
-		color: #ffffff;
-	}
-`;
-
-const Cadastrar = styled.p`
-	font-size: 14px;
-	color: #52b6ff;
-	text-decoration: underline;
-`;
