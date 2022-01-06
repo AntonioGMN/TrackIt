@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import { From, Cadastrar, logoCompleto } from "../../components/styles";
+import { From, Cadastrar, logoCompleto } from "../../styles";
 
 export default function TelaCadastro() {
 	const [email, setEmail] = useState("");

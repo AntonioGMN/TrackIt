@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import logoCompleto from "./logoTrackIt.png";
+import logoCompleto from "./imgs/logoTrackIt.png";
 
 const From = styled.form`
 	display: flex;

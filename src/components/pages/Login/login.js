@@ -1,16 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import { From, Cadastrar, logoCompleto } from "../../components/styles";
+import { useState, useContext } from "react";
+
+import { From, Cadastrar, logoCompleto } from "../../styles";
+import UserContext from "../../../contexts/UserContext";
 
 export default function TelaLogin() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
-
 	const navigate = useNavigate();
+
+	const { setUser } = useContext(UserContext);
 
 	function login(e) {
 		e.preventDefault();
@@ -25,8 +28,8 @@ export default function TelaLogin() {
 		);
 
 		promessa.then((resposta) => {
+			setUser(resposta.data);
 			navigate("/hoje");
-			console.log(resposta);
 		});
 		promessa.catch(() => {
 			alert("Erro no Login, por favor tente novamente");
