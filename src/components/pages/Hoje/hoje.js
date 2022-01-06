@@ -11,7 +11,7 @@ export default function TelaHoje() {
 
 	return (
 		<>
-			<Topo url={user.image}></Topo>
+			<Topo></Topo>
 			<Menu />
 		</>
 	);

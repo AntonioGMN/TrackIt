@@ -1,7 +1,10 @@
+import UserContext from "../contexts/UserContext";
+import { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function Menu() {
+	const { user } = useContext(UserContext);
 	return (
 		<MenuStyle>
 			<Link to="/habitos">Hábitos</Link>
@@ -23,7 +26,7 @@ const MenuStyle = styled.nav`
 	left: 0px;
 
 	font-size: 18px;
-	color: #52b6ff;
+	background: #ffffff;
 
 	a {
 		color: #52b6ff;

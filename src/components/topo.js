@@ -1,13 +1,17 @@
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
+import { useContext } from "react";
 
 import logoMenor from "./imgs/Trackit.png";
 
-export default function Topo({ url }) {
+export default function Topo() {
+	const { user } = useContext(UserContext);
+
 	return (
 		<TopoStyle>
 			<img src={logoMenor} alt="logo" />
 			<ImgUser>
-				<img src={url} alt="perfil"></img>
+				<img src={user.image} alt="perfil"></img>
 			</ImgUser>
 		</TopoStyle>
 	);

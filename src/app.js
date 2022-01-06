@@ -7,9 +7,16 @@ import TelaHoje from "./components/pages/Hoje/hoje";
 import TelaHabitos from "./components/pages/Habitos/habitos";
 import TelaHistorico from "./components/pages/Historico/historico";
 import UserContext from "./contexts/UserContext";
+import Topo from "./components/topo";
+import Menu from "./components/menu";
 
 export default function App() {
 	const [user, setUser] = useState(null);
+
+	<UserContext.Provider value={{ user, setUser }}>
+		<Topo></Topo>
+		<Menu></Menu>
+	</UserContext.Provider>;
 
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
