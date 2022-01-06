@@ -1,4 +1,5 @@
 import Topo from "../../topo";
+import Menu from "../../menu";
 import UserContext from "../../../contexts/UserContext";
 import { useContext } from "react";
 
@@ -11,6 +12,7 @@ export default function TelaHoje() {
 	return (
 		<>
 			<Topo url={user.image}></Topo>
+			<Menu />
 		</>
 	);
 }

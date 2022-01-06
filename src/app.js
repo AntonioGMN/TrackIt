@@ -4,6 +4,8 @@ import { useState } from "react";
 import TelaLogin from "./components/pages/Login/login";
 import TelaCadastro from "./components/pages/Cadastro/cadastro";
 import TelaHoje from "./components/pages/Hoje/hoje";
+import TelaHabitos from "./components/pages/Habitos/habitos";
+import TelaHistorico from "./components/pages/Historico/historico";
 import UserContext from "./contexts/UserContext";
 
 export default function App() {
@@ -16,6 +18,8 @@ export default function App() {
 					<Route path="/" element={<TelaLogin />} />
 					<Route path="/cadastro" element={<TelaCadastro />} />
 					<Route path="/hoje" element={<TelaHoje />} />
+					<Route path="/habitos" element={<TelaHabitos />} />
+					<Route path="/historico" element={<TelaHistorico />} />
 				</Routes>
 			</BrowserRouter>
 		</UserContext.Provider>
