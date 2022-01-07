@@ -2,10 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 
 import { From, Cadastrar, logoCompleto } from "../../styles";
-import UserContext from "../../../contexts/UserContext";
+import { useAuth } from "../../../contexts/UserContext";
 
 export default function TelaLogin() {
 	const [email, setEmail] = useState("");
@@ -13,7 +13,17 @@ export default function TelaLogin() {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { setUser } = useContext(UserContext);
+	const { user, setUser } = useAuth();
+	console.log("user");
+	console.log(user);
+
+	useEffect(() => {
+		const userStorage = localStorage.getItem("user");
+		if (userStorage) {
+			setUser(JSON.parse(userStorage));
+			navigate("/hoje");
+		}
+	}, []);
 
 	function login(e) {
 		e.preventDefault();
@@ -28,6 +38,7 @@ export default function TelaLogin() {
 		);
 
 		promessa.then((resposta) => {
+			localStorage.setItem("user", JSON.stringify(resposta.data));
 			setUser(resposta.data);
 			navigate("/hoje");
 		});

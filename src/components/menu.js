@@ -1,10 +1,7 @@
-import UserContext from "../contexts/UserContext";
-import { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function Menu() {
-	const { user } = useContext(UserContext);
 	return (
 		<MenuStyle>
 			<Link to="/habitos">Hábitos</Link>

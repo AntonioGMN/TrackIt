@@ -1,20 +1,23 @@
 import styled from "styled-components";
-import UserContext from "../contexts/UserContext";
-import { useContext } from "react";
+import { useAuth } from "../contexts/UserContext";
 
 import logoMenor from "./imgs/Trackit.png";
 
 export default function Topo() {
-	const { user } = useContext(UserContext);
+	const { user } = useAuth();
 
-	return (
-		<TopoStyle>
-			<img src={logoMenor} alt="logo" />
-			<ImgUser>
-				<img src={user.image} alt="perfil"></img>
-			</ImgUser>
-		</TopoStyle>
-	);
+	if (user) {
+		return (
+			<TopoStyle>
+				<img src={logoMenor} alt="logo" />
+				<ImgUser>
+					<img src={user.image} alt="perfil"></img>
+				</ImgUser>
+			</TopoStyle>
+		);
+	} else {
+		return "carregando";
+	}
 }
 
 const TopoStyle = styled.header`
