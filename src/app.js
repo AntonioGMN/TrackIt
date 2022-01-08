@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import TelaLogin from "./components/pages/Login/login";
 import TelaCadastro from "./components/pages/Cadastro/cadastro";
@@ -12,6 +12,13 @@ import Menu from "./components/menu";
 
 export default function App() {
 	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		const userStorage = localStorage.getItem("user");
+		if (userStorage) {
+			setUser(JSON.parse(userStorage));
+		}
+	}, []);
 
 	<UserContext.Provider value={{ user, setUser }}>
 		<Topo></Topo>

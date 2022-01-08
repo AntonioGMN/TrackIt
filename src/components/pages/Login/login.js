@@ -13,9 +13,7 @@ export default function TelaLogin() {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
-	const { user, setUser } = useAuth();
-	console.log("user");
-	console.log(user);
+	const { setUser } = useAuth();
 
 	useEffect(() => {
 		const userStorage = localStorage.getItem("user");
