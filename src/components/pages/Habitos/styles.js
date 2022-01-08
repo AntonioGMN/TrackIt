@@ -4,6 +4,7 @@ const HabitosStyle = styled.main`
 	width: 100vw;
 	height: 100vh;
 	background: #e5e5e5;
+
 	display: flex;
 	flex-direction: column;
 	padding: 18px;
@@ -98,4 +99,37 @@ const DiaStyle = styled.button`
 	background: ${(props) => (props.habilitado ? "#CFCFCF" : "#ffffff")};
 `;
 
-export { HabitosStyle, MeusHabitos, Criando, Dias, Salvar, DiaStyle };
+const HabitsCriados = styled.section`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`;
+
+const HabitStyle = styled.article`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 15px;
+	background: #ffffff;
+	position: relative;
+
+	p {
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 25px;
+		letter-spacing: 0em;
+		text-align: left;
+		color: #666666;
+	}
+`;
+
+export {
+	HabitosStyle,
+	MeusHabitos,
+	Criando,
+	Dias,
+	Salvar,
+	DiaStyle,
+	HabitsCriados,
+	HabitStyle,
+};

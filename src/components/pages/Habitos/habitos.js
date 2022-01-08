@@ -6,6 +6,7 @@ import axios from "axios";
 import Topo from "../../topo";
 import Menu from "../../menu";
 import Dia from "./dias";
+import Habits from "./HabitosCriados";
 import { HabitosStyle, MeusHabitos, Criando, Dias, Salvar } from "./styles";
 
 export default function TelaHabitos() {
@@ -39,9 +40,9 @@ export default function TelaHabitos() {
 		});
 	}
 
-	// useEffect(() => {
-	// 	getHabitos();
-	// }, []);
+	useEffect(() => {
+		getHabitos();
+	}, []);
 
 	function setHabito(e) {
 		e.preventDefault();
@@ -66,87 +67,92 @@ export default function TelaHabitos() {
 
 	if (user) {
 		return (
-			<HabitosStyle>
+			<>
 				<Topo url={user.image} />
-				<MeusHabitos>
-					<p>Meus hábitos</p>
-					<button onClick={() => setCriando(true)}>+</button>
-				</MeusHabitos>
-				{criando && (
-					<Criando>
-						<input
-							type="text"
-							placeholder="nome do hábito"
-							disabled={loading}
-							value={newhabit.name}
-							onChange={(e) => setNewhabit({ ...newhabit, nome: e.target.value })}
-						/>
-						<Dias>
-							<Dia
-								letra={"D"}
-								numero={"7"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
+				<HabitosStyle>
+					<MeusHabitos>
+						<p>Meus hábitos</p>
+						<button onClick={() => setCriando(true)}>+</button>
+					</MeusHabitos>
+					{criando && (
+						<Criando>
+							<input
+								type="text"
+								placeholder="nome do hábito"
+								disabled={loading}
+								value={newhabit.name}
+								onChange={(e) => setNewhabit({ ...newhabit, nome: e.target.value })}
 							/>
-							<Dia
-								letra={"S"}
-								numero={"1"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-							<Dia
-								letra={"T"}
-								numero={"2"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-							<Dia
-								letra={"Q"}
-								numero={"3"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-							<Dia
-								letra={"Q"}
-								numero={"4"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-							<Dia
-								letra={"S"}
-								numero={"5"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-							<Dia
-								letra={"S"}
-								numero={"6"}
-								newhabit={newhabit}
-								setNewhabit={setNewhabit}
-							/>
-						</Dias>
-						<Salvar onSubmit={setHabito}>
-							<p>Cancelar</p>
-							<button typeof="submit">
-								{loading ? (
-									<Loader type="ThreeDots" color="#FFFFFF" height={45} width={50} />
-								) : (
-									"Salvar"
-								)}
-							</button>
-						</Salvar>
-					</Criando>
-				)}
-				{!habitsList ? (
-					<p>
-						Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-						começar a trackear!
-					</p>
-				) : (
-					"tem habitos"
-				)}
+							<Dias>
+								<Dia
+									letra={"D"}
+									numero={"7"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"S"}
+									numero={"1"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"T"}
+									numero={"2"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"Q"}
+									numero={"3"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"Q"}
+									numero={"4"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"S"}
+									numero={"5"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+								<Dia
+									letra={"S"}
+									numero={"6"}
+									newhabit={newhabit}
+									setNewhabit={setNewhabit}
+								/>
+							</Dias>
+							<Salvar onSubmit={setHabito}>
+								<p>Cancelar</p>
+								<button typeof="submit">
+									{loading ? (
+										<Loader type="ThreeDots" color="#FFFFFF" height={45} width={50} />
+									) : (
+										"Salvar"
+									)}
+								</button>
+							</Salvar>
+							<section>
+								<article></article>
+							</section>
+						</Criando>
+					)}
+					{!habitsList ? (
+						<p>
+							Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+							começar a trackear!
+						</p>
+					) : (
+						<Habits habs={habitsList}></Habits>
+					)}
+				</HabitosStyle>
 				<Menu />
-			</HabitosStyle>
+			</>
 		);
 	} else {
 		return "carregando";
