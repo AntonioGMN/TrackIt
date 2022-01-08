@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { From, Cadastrar, logoCompleto } from "../../styles";
 import { useAuth } from "../../../contexts/UserContext";
@@ -15,13 +15,11 @@ export default function TelaLogin() {
 
 	const { setUser } = useAuth();
 
-	useEffect(() => {
-		const userStorage = localStorage.getItem("user");
-		if (userStorage) {
-			setUser(JSON.parse(userStorage));
-			navigate("/hoje");
-		}
-	}, []);
+	const userStorage = localStorage.getItem("user");
+	if (userStorage) {
+		setUser(JSON.parse(userStorage));
+		navigate("/hoje");
+	}
 
 	function login(e) {
 		e.preventDefault();

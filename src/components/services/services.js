@@ -17,4 +17,20 @@ function getHabitos(token) {
 	});
 }
 
+// function setHabito(dados, token, e) {
+// 	e.preventDefault();
+
+// 	const promessa = axios.post(
+// 		"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+// 		dados,
+// 		{ headers: { Authorization: `Bearer ${token}` } }
+// 	);
+
+// 	promessa.then((resposta) => console.log(resposta));
+// 	promessa.catch((erro) => {
+// 		console.log(erro);
+// 		console.log("erro");
+// 	});
+// }
+
 export { getHabitos };

@@ -62,7 +62,7 @@ const Dias = styled.div`
 	gap: 8px;
 `;
 
-const Salvar = styled.section`
+const Salvar = styled.form`
 	display: flex;
 	justify-content: flex-end;
 	align-items: flex-end;

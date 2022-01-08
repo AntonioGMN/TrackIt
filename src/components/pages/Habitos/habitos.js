@@ -1,66 +1,42 @@
 import { useAuth } from "../../../contexts/UserContext";
 import { useState } from "react";
-//import axios from "axios";
+import Loader from "react-loader-spinner";
+import axios from "axios";
 
 import Topo from "../../topo";
 import Menu from "../../menu";
-import {
-	HabitosStyle,
-	MeusHabitos,
-	Criando,
-	Dias,
-	Salvar,
-	DiaStyle,
-} from "./styles";
-
-function Dia({ newhabit, setNewhabit, letra }) {
-	const [escolhido, setEscolhido] = useState(false);
-
-	function removeDia(newhabit, setNewhabit, alvo) {
-		const novo = [];
-		let cont = 0;
-		for (let i = 0; i < newhabit.dias.length; i++) {
-			if (newhabit.dias[i] !== alvo) novo.push(newhabit.dias[i]);
-			else if (cont > 0) {
-				novo.push(newhabit.dias[i]);
-			} else cont++;
-		}
-		setNewhabit({
-			...newhabit,
-			dias: novo,
-		});
-	}
-
-	function setdias(e) {
-		if (escolhido) {
-			setEscolhido(false);
-			removeDia(newhabit, setNewhabit, e.target.value);
-		} else {
-			setEscolhido(true);
-			setNewhabit({ ...newhabit, dias: [...newhabit.dias, e.target.value] });
-		}
-	}
-
-	return (
-		<DiaStyle
-			habilitado={escolhido}
-			value={letra}
-			onClick={(e) => {
-				setdias(e);
-			}}
-		>
-			{letra}
-		</DiaStyle>
-	);
-}
+import Dia from "./dias";
+import { HabitosStyle, MeusHabitos, Criando, Dias, Salvar } from "./styles";
+//import { setHabito } from "../../services/services";
 
 export default function TelaHabitos() {
 	const { user } = useAuth();
 	const [criando, setCriando] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [newhabit, setNewhabit] = useState({
 		nome: "",
 		dias: [],
 	});
+
+	function setHabito(e) {
+		e.preventDefault();
+		setLoading(true);
+
+		const promessa = axios.post(
+			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+			{ name: newhabit.nome, days: newhabit.dias },
+			{ headers: { Authorization: `Bearer ${user.token}` } }
+		);
+
+		promessa.then((resposta) => {
+			console.log(resposta.data);
+			setCriando(false);
+			setLoading(false);
+		});
+		promessa.catch((erro) => {
+			console.log(erro);
+		});
+	}
 
 	if (user) {
 		return (
@@ -81,21 +57,63 @@ export default function TelaHabitos() {
 						<input
 							type="text"
 							placeholder="nome do hábito"
+							disabled={loading}
 							value={newhabit.name}
 							onChange={(e) => setNewhabit({ ...newhabit, nome: e.target.value })}
 						></input>
 						<Dias>
-							<Dia letra={"D"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"S"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"T"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"Q"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"Q"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"S"} newhabit={newhabit} setNewhabit={setNewhabit} />
-							<Dia letra={"S"} newhabit={newhabit} setNewhabit={setNewhabit} />
+							<Dia
+								letra={"D"}
+								numero={"7"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"S"}
+								numero={"1"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"T"}
+								numero={"2"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"Q"}
+								numero={"3"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"Q"}
+								numero={"4"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"S"}
+								numero={"5"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
+							<Dia
+								letra={"S"}
+								numero={"6"}
+								newhabit={newhabit}
+								setNewhabit={setNewhabit}
+							/>
 						</Dias>
-						<Salvar>
+						<Salvar onSubmit={setHabito}>
 							<p>Cancelar</p>
-							<button>Salvar</button>
+							<button typeof="submit">
+								{loading ? (
+									<Loader type="ThreeDots" color="#FFFFFF" height={45} width={50} />
+								) : (
+									"Salvar"
+								)}
+							</button>
 						</Salvar>
 					</Criando>
 				)}
