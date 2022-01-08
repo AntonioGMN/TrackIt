@@ -12,13 +12,14 @@ import Menu from "./components/menu";
 
 export default function App() {
 	const [user, setUser] = useState(null);
+	const [token, setToken] = useState(null);
 
-	useEffect(() => {
-		const userStorage = localStorage.getItem("user");
-		if (userStorage) {
-			setUser(JSON.parse(userStorage));
-		}
-	}, []);
+	// useEffect(() => {
+	// 	const userStorage = localStorage.getItem("user");
+	// 	if (userStorage) {
+	// 		setUser(JSON.parse(userStorage));
+	// 	}
+	// }, []);
 
 	<UserContext.Provider value={{ user, setUser }}>
 		<Topo></Topo>
@@ -26,10 +27,10 @@ export default function App() {
 	</UserContext.Provider>;
 
 	return (
-		<UserContext.Provider value={{ user, setUser }}>
+		<UserContext.Provider value={{ user, setUser, token, setToken }}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<TelaLogin />} />
+					<Route path="/" element={<TelaLogin setToken={setToken} />} />
 					<Route path="/cadastro" element={<TelaCadastro />} />
 					<Route path="/hoje" element={<TelaHoje />} />
 					<Route path="/habitos" element={<TelaHabitos />} />

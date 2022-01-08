@@ -1,5 +1,5 @@
 import { useAuth } from "../../../contexts/UserContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 
@@ -7,23 +7,48 @@ import Topo from "../../topo";
 import Menu from "../../menu";
 import Dia from "./dias";
 import { HabitosStyle, MeusHabitos, Criando, Dias, Salvar } from "./styles";
-//import { setHabito } from "../../services/services";
 
 export default function TelaHabitos() {
-	const { user } = useAuth();
+	const { user, token } = useAuth();
 	const [criando, setCriando] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [habitsList, sethabitsList] = useState(null);
 	const [newhabit, setNewhabit] = useState({
 		nome: "",
 		dias: [],
 	});
+
+	function getHabitos() {
+		const promessa = axios.get(
+			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+
+		promessa.then((resposta) => {
+			console.log("usando getHabitos");
+			console.log("resposta.data:");
+			console.log(resposta.data);
+			sethabitsList(resposta.data);
+			console.log("lista de hábitos");
+			console.log(habitsList);
+			console.log(token);
+		});
+		promessa.catch(() => {
+			console.log("erro");
+			return "Erro ao buscar lista de hábitos";
+		});
+	}
+
+	// useEffect(() => {
+	// 	getHabitos();
+	// }, []);
 
 	function setHabito(e) {
 		e.preventDefault();
 		setLoading(true);
 
 		const promessa = axios.post(
-			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+			"https:mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
 			{ name: newhabit.nome, days: newhabit.dias },
 			{ headers: { Authorization: `Bearer ${user.token}` } }
 		);
@@ -32,6 +57,7 @@ export default function TelaHabitos() {
 			console.log(resposta.data);
 			setCriando(false);
 			setLoading(false);
+			getHabitos();
 		});
 		promessa.catch((erro) => {
 			console.log(erro);
@@ -44,13 +70,7 @@ export default function TelaHabitos() {
 				<Topo url={user.image} />
 				<MeusHabitos>
 					<p>Meus hábitos</p>
-					<button
-						onClick={() => {
-							setCriando(true);
-						}}
-					>
-						+
-					</button>
+					<button onClick={() => setCriando(true)}>+</button>
 				</MeusHabitos>
 				{criando && (
 					<Criando>
@@ -60,7 +80,7 @@ export default function TelaHabitos() {
 							disabled={loading}
 							value={newhabit.name}
 							onChange={(e) => setNewhabit({ ...newhabit, nome: e.target.value })}
-						></input>
+						/>
 						<Dias>
 							<Dia
 								letra={"D"}
@@ -117,10 +137,14 @@ export default function TelaHabitos() {
 						</Salvar>
 					</Criando>
 				)}
-				<p>
-					Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-					começar a trackear!
-				</p>
+				{!habitsList ? (
+					<p>
+						Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+						começar a trackear!
+					</p>
+				) : (
+					"tem habitos"
+				)}
 				<Menu />
 			</HabitosStyle>
 		);
