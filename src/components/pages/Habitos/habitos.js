@@ -5,9 +5,9 @@ import axios from "axios";
 
 import Topo from "../../topo";
 import Menu from "../../menu";
-import Dia from "./dias";
 import Habits from "./HabitosCriados";
-import { HabitosStyle, MeusHabitos, Criando, Dias, Salvar } from "./styles";
+import Semana from "./semana";
+import { HabitosStyle, MeusHabitos, Criando, Salvar } from "./styles";
 
 export default function TelaHabitos() {
 	const { user, token } = useAuth();
@@ -36,7 +36,7 @@ export default function TelaHabitos() {
 		});
 		promessa.catch(() => {
 			console.log("erro");
-			return "Erro ao buscar lista de hábitos";
+			alert("Erro ao buscar lista de hábitos");
 		});
 	}
 
@@ -51,7 +51,7 @@ export default function TelaHabitos() {
 		const promessa = axios.post(
 			"https:mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
 			{ name: newhabit.nome, days: newhabit.dias },
-			{ headers: { Authorization: `Bearer ${user.token}` } }
+			{ headers: { Authorization: `Bearer ${token}` } }
 		);
 
 		promessa.then((resposta) => {
@@ -60,8 +60,9 @@ export default function TelaHabitos() {
 			setLoading(false);
 			getHabitos();
 		});
-		promessa.catch((erro) => {
-			console.log(erro);
+		promessa.catch(() => {
+			alert("Erro ao cadastrar novo hábito");
+			setLoading(false);
 		});
 	}
 
@@ -83,52 +84,16 @@ export default function TelaHabitos() {
 								value={newhabit.name}
 								onChange={(e) => setNewhabit({ ...newhabit, nome: e.target.value })}
 							/>
-							<Dias>
-								<Dia
-									letra={"D"}
-									numero={"7"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"S"}
-									numero={"1"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"T"}
-									numero={"2"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"Q"}
-									numero={"3"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"Q"}
-									numero={"4"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"S"}
-									numero={"5"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-								<Dia
-									letra={"S"}
-									numero={"6"}
-									newhabit={newhabit}
-									setNewhabit={setNewhabit}
-								/>
-							</Dias>
+							<Semana newhabit={newhabit} setNewhabit={setNewhabit} />
 							<Salvar onSubmit={setHabito}>
-								<p>Cancelar</p>
+								<p
+									onClick={(e) => {
+										e.preventDefault();
+										setCriando(false);
+									}}
+								>
+									Cancelar
+								</p>
 								<button typeof="submit">
 									{loading ? (
 										<Loader type="ThreeDots" color="#FFFFFF" height={45} width={50} />
@@ -137,9 +102,6 @@ export default function TelaHabitos() {
 									)}
 								</button>
 							</Salvar>
-							<section>
-								<article></article>
-							</section>
 						</Criando>
 					)}
 					{!habitsList ? (
@@ -148,7 +110,7 @@ export default function TelaHabitos() {
 							começar a trackear!
 						</p>
 					) : (
-						<Habits habs={habitsList}></Habits>
+						<Habits habs={habitsList} token={token} getHabitos={getHabitos}></Habits>
 					)}
 				</HabitosStyle>
 				<Menu />

@@ -1,7 +1,25 @@
 import { HabitsCriados, HabitStyle, DiaStyle, Dias } from "./styles";
 import { Trash } from "react-ionicons";
 
-export default function Habits({ habs }) {
+import axios from "axios";
+
+export default function Habits({ habs, token, getHabitos }) {
+	function deletar(id, token, função) {
+		const promessa = axios.delete(
+			`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+
+		promessa.then(() => {
+			const resultado = window.confirm("Deseja excluir o habito?");
+			if (resultado) {
+				função();
+			} else {
+				alert("Você desistiu de excluir o habito!");
+			}
+		});
+	}
+
 	function DiasEscolhidos({ array }) {
 		return (
 			<Dias>
@@ -28,6 +46,9 @@ export default function Habits({ habs }) {
 							position: "absolute",
 							top: "14px",
 							right: "12px",
+						}}
+						onClick={() => {
+							deletar(x.id, token, getHabitos);
 						}}
 					/>
 				</HabitStyle>
