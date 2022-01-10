@@ -37,11 +37,6 @@ export default function TelaHabitos() {
 		getHabitos();
 	}, []);
 
-	useEffect(() => {
-		console.log("mudou");
-		console.log(newhabit);
-	}, [newhabit]);
-
 	function setHabito(e) {
 		e.preventDefault();
 		setLoading(true);
@@ -53,8 +48,6 @@ export default function TelaHabitos() {
 		);
 
 		promessa.then((resposta) => {
-			console.log("sethabito funcionou");
-			//console.log(resposta.data);
 			setCriando(false);
 			setLoading(false);
 			getHabitos();

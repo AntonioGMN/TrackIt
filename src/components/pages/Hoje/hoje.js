@@ -34,6 +34,34 @@ export default function TelaHoje() {
 
 	useEffect(gethabits, []);
 
+	function marcar(id) {
+		const promessa = axios.post(
+			`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+			null,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+
+		promessa.then(() => gethabits());
+
+		promessa.catch((erro) => {
+			console.log(erro.response);
+		});
+	}
+
+	function desmarcar(id) {
+		const promessa = axios.post(
+			`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,
+			null,
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+
+		promessa.then(() => gethabits());
+
+		promessa.catch((erro) => {
+			console.log(erro.response);
+		});
+	}
+
 	useEffect(() => {
 		console.log("habits:");
 		console.log(habits);
@@ -47,7 +75,7 @@ export default function TelaHoje() {
 					{dayjs().locale("pt-br").format("dddd, DD/MM")}
 					<p>Nenhum hábito concluído ainda</p>
 				</HojeStyle>
-				<ListaHabists lista={habits} />
+				<ListaHabists lista={habits} marcar={marcar} desmarcar={desmarcar} />
 			</HabitosHoje>
 			<Menu />
 		</>
