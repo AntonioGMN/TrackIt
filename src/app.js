@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import TelaLogin from "./components/pages/Login/login";
 import TelaCadastro from "./components/pages/Cadastro/cadastro";
@@ -30,7 +30,7 @@ export default function App() {
 		<UserContext.Provider value={{ user, setUser, token, setToken }}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<TelaLogin setToken={setToken} />} />
+					<Route path="/" element={<TelaLogin />} />
 					<Route path="/cadastro" element={<TelaCadastro />} />
 					<Route path="/hoje" element={<TelaHoje />} />
 					<Route path="/habitos" element={<TelaHabitos />} />

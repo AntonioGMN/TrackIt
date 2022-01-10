@@ -26,16 +26,9 @@ export default function TelaHabitos() {
 		);
 
 		promessa.then((resposta) => {
-			console.log("usando getHabitos");
-			console.log("resposta.data:");
-			console.log(resposta.data);
 			sethabitsList(resposta.data);
-			console.log("lista de hábitos");
-			console.log(habitsList);
-			console.log(token);
 		});
 		promessa.catch(() => {
-			console.log("erro");
 			alert("Erro ao buscar lista de hábitos");
 		});
 	}
@@ -43,6 +36,11 @@ export default function TelaHabitos() {
 	useEffect(() => {
 		getHabitos();
 	}, []);
+
+	useEffect(() => {
+		console.log("mudou");
+		console.log(newhabit);
+	}, [newhabit]);
 
 	function setHabito(e) {
 		e.preventDefault();
@@ -55,7 +53,8 @@ export default function TelaHabitos() {
 		);
 
 		promessa.then((resposta) => {
-			console.log(resposta.data);
+			console.log("sethabito funcionou");
+			//console.log(resposta.data);
 			setCriando(false);
 			setLoading(false);
 			getHabitos();

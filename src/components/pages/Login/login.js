@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loader from "react-loader-spinner";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { From, Cadastrar, logoCompleto } from "../../styles";
 import { useAuth } from "../../../contexts/UserContext";
@@ -36,13 +37,13 @@ export default function TelaLogin() {
 		);
 
 		promessa.then((resposta) => {
-			const dados = {
-				id: resposta.data.id,
-				name: resposta.data.name,
-				image: resposta.data.image,
-				email: resposta.data.email,
-				password: resposta.data.password,
-			};
+			// const dados = {
+			// 	id: resposta.data.id,
+			// 	name: resposta.data.name,
+			// 	image: resposta.data.image,
+			// 	email: resposta.data.email,
+			// 	password: resposta.data.password,
+			// };
 			//localStorage.setItem("user", JSON.stringify(dados));
 			setUser(resposta.data);
 			setToken(resposta.data.token);

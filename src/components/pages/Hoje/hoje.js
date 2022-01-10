@@ -1,29 +1,55 @@
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../../contexts/UserContext";
+import axios from "axios";
+
+import { HabitosHoje, HojeStyle } from "./styles";
 import Topo from "../../topo";
 import Menu from "../../menu";
-import styled from "styled-components";
-//import { Dayjs } from "dayjs";
-//import { useAuth } from "../../../contexts/UserContext";
+import ListaHabists from "./habitos";
 
 export default function TelaHoje() {
-	//const { user } = useAuth();
-	// const dayjs = require().weekday(7);
-	// dayjs().weekday(7);
+	const { token } = useAuth();
+	const [habits, setHabits] = useState(null);
+	dayjs.locale("pt-br");
+
+	function gethabits() {
+		const promessa = axios.get(
+			"https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+			{ headers: { Authorization: `Bearer ${token}` } }
+		);
+
+		promessa.then((resposta) => {
+			console.log("resposta de dia");
+			console.log(resposta.data);
+			setHabits(resposta.data);
+		});
+
+		promessa.catch(() => {
+			console.log("erro");
+			alert("Erro ao buscar hábitos em hoje");
+		});
+	}
+
+	useEffect(gethabits, []);
+
+	useEffect(() => {
+		console.log("habits:");
+		console.log(habits);
+	}, [habits]);
 
 	return (
 		<>
-			<Topo></Topo>
-			<HabitosHoje></HabitosHoje>
+			<Topo />
+			<HabitosHoje>
+				<HojeStyle>
+					{dayjs().locale("pt-br").format("dddd, DD/MM")}
+					<p>Nenhum hábito concluído ainda</p>
+				</HojeStyle>
+				<ListaHabists lista={habits} />
+			</HabitosHoje>
 			<Menu />
 		</>
 	);
 }
-
-const HabitosHoje = styled.main`
-	width: 100vw;
-	height: 100vh;
-	background: #e5e5e5;
-	display: flex;
-	flex-direction: column;
-	padding: 18px;
-	gap: 20px;
-`;

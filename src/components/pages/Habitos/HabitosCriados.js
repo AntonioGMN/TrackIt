@@ -23,7 +23,7 @@ export default function Habits({ habs, token, getHabitos }) {
 	function DiasEscolhidos({ array }) {
 		return (
 			<Dias>
-				<DiaStyle habilitado={array.includes(7)}>D</DiaStyle>
+				<DiaStyle habilitado={array.includes(0)}>D</DiaStyle>
 				<DiaStyle habilitado={array.includes(1)}>S</DiaStyle>
 				<DiaStyle habilitado={array.includes(2)}>T</DiaStyle>
 				<DiaStyle habilitado={array.includes(3)}>Q</DiaStyle>

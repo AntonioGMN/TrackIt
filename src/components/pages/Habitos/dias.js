@@ -8,7 +8,7 @@ export default function Dia({ newhabit, setNewhabit, letra, numero }) {
 		if (escolhido) {
 			setEscolhido(false);
 			setNewhabit({
-				...setNewhabit,
+				...newhabit,
 				dias: newhabit.dias.filter((x) => x !== e.target.value),
 			});
 		} else {
