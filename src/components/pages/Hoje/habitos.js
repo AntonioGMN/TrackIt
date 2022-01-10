@@ -1,14 +1,12 @@
 import { HabitsStyle, HabitStyle, ButtonStyle } from "./styles";
 import { BsCheckLg } from "react-icons/bs";
-import axios from "axios";
-import { useAuth } from "../../../contexts/UserContext";
 
 export default function ListaHabists({ lista, marcar, desmarcar }) {
 	if (!lista) return "carregando";
 
-	function hanbMarcação(array) {
-		if (array.done) desmarcar(array.id);
-		else marcar(array.id);
+	function hanbMarcação(ob) {
+		if (ob.done) desmarcar(ob.id);
+		else marcar(ob.id);
 	}
 
 	return (

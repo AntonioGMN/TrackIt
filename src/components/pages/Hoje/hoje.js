@@ -10,8 +10,7 @@ import Menu from "../../menu";
 import ListaHabists from "./habitos";
 
 export default function TelaHoje() {
-	const { token } = useAuth();
-	const [habits, setHabits] = useState(null);
+	const { token, habitsHoje, setHabitsHoje } = useAuth();
 	dayjs.locale("pt-br");
 
 	function gethabits() {
@@ -22,8 +21,7 @@ export default function TelaHoje() {
 
 		promessa.then((resposta) => {
 			console.log("resposta de dia");
-			console.log(resposta.data);
-			setHabits(resposta.data);
+			setHabitsHoje(resposta.data);
 		});
 
 		promessa.catch(() => {
@@ -63,9 +61,9 @@ export default function TelaHoje() {
 	}
 
 	useEffect(() => {
-		console.log("habits:");
-		console.log(habits);
-	}, [habits]);
+		console.log("habitsHoje:");
+		console.log(habitsHoje);
+	}, [habitsHoje]);
 
 	return (
 		<>
@@ -75,7 +73,7 @@ export default function TelaHoje() {
 					{dayjs().locale("pt-br").format("dddd, DD/MM")}
 					<p>Nenhum hábito concluído ainda</p>
 				</HojeStyle>
-				<ListaHabists lista={habits} marcar={marcar} desmarcar={desmarcar} />
+				<ListaHabists lista={habitsHoje} marcar={marcar} desmarcar={desmarcar} />
 			</HabitosHoje>
 			<Menu />
 		</>
