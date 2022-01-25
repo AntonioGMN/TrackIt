@@ -1,3 +1,7 @@
+# TrackIt
+<br>
+This is a habits manager. You can add habits, monitor during the week and know when you stopped doing them
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
