@@ -1,6 +1,11 @@
 # TrackIt
-<br>
-This is a habits manager. You can add habits, monitor during the week and know when you stopped doing them
+
+This is a habits manager. You can add habits, monitor during the week and know when you stopped doing them. 
+
+![treckit](https://user-images.githubusercontent.com/93607034/151034170-bb0f57ce-3767-4230-9ae6-d9deb61ea075.gif)
+
+
+
 
 # Getting Started with Create React App
 
